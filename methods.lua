@@ -1,4 +1,4 @@
-local component = require("component")
+component = require("component")
 local event = require("event")
 local gpu = component.gpu
 local width, height = gpu.getResolution()
