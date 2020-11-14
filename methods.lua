@@ -52,6 +52,7 @@ local function displayItem(pos, key, val)
 end
 
 local function generateList()
+    gpu.fill(1, 1, width, height, " ")                          --clear the screen
     i = startingLine
     lookup = {};
     for key, val in pairs(data) do
