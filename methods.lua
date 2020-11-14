@@ -94,11 +94,11 @@ makeTable()
 while loop do
     selectValue = lookup[select]                                            --set selected value
     if selectPrev ~= nil then                                               --if there was a movment (to prevent crashes on data reload)
-        displayItem(selectPrev + startingLine - 1, lookup[selectPrev], data[lookup[selectPrev]])    --unhighlight the previus item
+        displayItem(selectPrev + startingLine - scroll - 1, lookup[selectPrev], data[lookup[selectPrev]])    --unhighlight the previus item
     end 
     gpu.setForeground(0x000000)                                             --switch colors 
     gpu.setBackground(0xFFFFFF)
-    displayItem(select + startingLine - 1, selectValue, data[selectValue])  --highlight current
+    displayItem(select + startingLine - scroll - 1, selectValue, data[selectValue])  --highlight current
     gpu.setForeground(0xFFFFFF)                                             --switch back colors
     gpu.setBackground(0x000000)
     selectPrev = select                                                     --set previus select
@@ -149,6 +149,8 @@ while loop do
     if key == 0xD0 then                                             --down
         if select - scroll + startingLine == endingLine and select + 1 < selectMax then     --scroll
             scroll = scroll + 1 
+            generateList()
+            makeTable()
         end
         select = select + 1                                         --increment select
         if select > selectMax then select = select - 1 end                  --if to big
@@ -156,6 +158,8 @@ while loop do
     if key == 0xC8 then                                             --up
         if select - scroll < startingLine and scroll ~=  0 then     --scroll
             scroll = scroll - 1 
+            generateList()
+            makeTable()
         end
         select = select - 1                                         --decrement select
         if select < 1 then select = select + 1 end                  --if to small
